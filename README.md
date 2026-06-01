@@ -48,8 +48,7 @@ A machine learning web application that predicts the likelihood of liver disease
  
 **1. Clone the repository**
 ```bash
-git clone https://github.com/your-username/liver-disease-prediction.git
-cd liver-disease-prediction
+git clone https://github.com/Oooommmmm/Liver-Disease-Prediction-System.git
 ```
  
 **2. Install dependencies**
