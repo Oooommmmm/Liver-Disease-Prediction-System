@@ -9,7 +9,7 @@ A machine learning web application that predicts the likelihood of liver disease
 - Trained on the **Indian Liver Patient Dataset (ILPD)** — 583 real patients
 - Displays **confidence score (%)** alongside the prediction
 - Clean two-column UI with dataset insights and KPI cards
-- Real-time prediction with color-coded results (🔴 High Risk / ✅ Low Risk)
+- Real-time prediction with color-coded results (High Risk / Low Risk)
 ---
  
 ## Model Details
@@ -22,8 +22,6 @@ A machine learning web application that predicts the likelihood of liver disease
 | Disease Cases | 416 (71.3%) |
 | Train/Test Split | 80% / 20% |
 | **Model Accuracy** | **75%** |
- 
-> **Note:** The ILPD dataset has a 71% disease prevalence rate which introduces class imbalance. Predictions reflect dataset distribution and should not be used as standalone clinical decisions.
  
 ---
  
