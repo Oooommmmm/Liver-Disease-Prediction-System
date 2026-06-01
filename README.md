@@ -70,9 +70,6 @@ streamlit run app.py
 ---
  
  
-> ⚠️ **Disclaimer:** This tool is built for educational purposes only and is not a substitute for professional medical advice.
+**Disclaimer:** This tool is built for educational purposes only and is not a substitute for professional medical advice.
  
----
-## 📄 Dataset Source
- 
-[Indian Liver Patient Dataset — UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/ILPD+(Indian+Liver+Patient+Dataset))
+
