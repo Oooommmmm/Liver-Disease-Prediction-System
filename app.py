@@ -2,10 +2,8 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Configure the page layout
 st.set_page_config(page_title="Liver Disease Diagnostic System", page_icon="🩺", layout="wide")
 
-# Load the trained Random Forest model
 @st.cache_resource
 def load_model():
     with open('liver_model.pkl', 'rb') as file:
@@ -13,12 +11,10 @@ def load_model():
 
 model = load_model()
 
-# Header Section
 st.title("🩺 Liver Disease Prediction Model")
 st.markdown("Early detection and supportive decision-making powered by Machine Learning.")
 st.divider()
 
-# Create two columns (Left for Info/Stats, Right for the Form)
 col1, col2 = st.columns([1, 2], gap="large")
 
 with col1:
@@ -30,7 +26,6 @@ with col1:
     
     st.subheader("Training Data Overview")
     
-    # Create KPI metric cards for the dataset stats
     metric_col1, metric_col2 = st.columns(2)
     metric_col1.metric(label="Total Patients", value="583")
     metric_col2.metric(label="Liver Disease Cases", value="416", delta="71.3%", delta_color="off")
@@ -52,16 +47,14 @@ with col2:
     st.header("Patient Data Entry Form")
     st.markdown("Enter patient clinical metrics below to predict the likelihood of liver disease.")
     
-    # Create the form using Streamlit inputs
     with st.form("prediction_form"):
-        # Group inputs into rows using columns
         row1_col1, row1_col2 = st.columns(2)
         age = row1_col1.number_input("Age", min_value=1, max_value=120, value=20)
         gender_selection = row1_col2.selectbox("Gender", ["Female", "Male"])
         
         row2_col1, row2_col2 = st.columns(2)
         tb = row2_col1.number_input("Total Bilirubin", min_value=0.0, format="%.2f", value=1.21)
-        db = row2_col2.number_input("Direct Bilirubin", min_value=0.0, format="%.2f", value=0.19)  # Fixed variable bug to row2_col2
+        db = row2_col2.number_input("Direct Bilirubin", min_value=0.0, format="%.2f", value=0.19) 
         
         row3_col1, row3_col2 = st.columns(2)
         ap = row3_col1.number_input("Alkaline Phosphotase", min_value=0.0, format="%.2f", value=150.14)
@@ -75,27 +68,19 @@ with col2:
         alb = row5_col1.number_input("Albumin", min_value=0.0, format="%.2f", value=3.30)
         agr = row5_col2.number_input("Albumin/Globulin Ratio", min_value=0.0, format="%.2f", value=0.95)
         
-        # Submit button
         submitted = st.form_submit_button("Run Diagnostics", use_container_width=True)
 
-    # Handle the prediction when the user clicks submit
     if submitted:
-        # Convert gender to numeric (Male = 1, Female = 0)
         gender_numeric = 1 if gender_selection == "Male" else 0
-        
-        # Prepare the input array
+
         input_features = np.array([[age, gender_numeric, tb, db, ap, sgpt, sgot, tp, alb, agr]])
-        
-        # NEW: Calculate probability estimates instead of a hard binary prediction
-        # predict_proba returns an array: [[probability_of_0, probability_of_1]]
+
         probabilities = model.predict_proba(input_features)[0]
         low_risk_prob = probabilities[0] * 100
         high_risk_prob = probabilities[1] * 100
-        
-        # Determine final prediction category based on the highest probability
+
         prediction = 1 if high_risk_prob >= 50 else 0
-        
-        # Display the result with confidence scores
+
         st.divider()
         if prediction == 1:
             st.error(f"🚨 **High Risk Detected:** The model indicates that the patient is likely suffering from liver disease.")
@@ -104,6 +89,5 @@ with col2:
             st.success(f"✅ **Low Risk:** The model does not detect strong signs of liver disease based on the provided metrics.")
             st.metric(label="Model Confidence Score (Low Risk)", value=f"{low_risk_prob:.1f}%")
 
-# NEW: Add Global Medical Disclaimer at the bottom of the page
 st.divider()
 st.caption("⚠️ **Disclaimer:** This tool is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.")
