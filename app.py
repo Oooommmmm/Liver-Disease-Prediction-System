@@ -25,7 +25,7 @@ with col1:
     """)
     
     st.subheader("Training Data Overview")
-    
+
     metric_col1, metric_col2 = st.columns(2)
     metric_col1.metric(label="Total Patients", value="583")
     metric_col2.metric(label="Liver Disease Cases", value="416", delta="71.3%", delta_color="off")
@@ -46,7 +46,7 @@ with col1:
 with col2:
     st.header("Patient Data Entry Form")
     st.markdown("Enter patient clinical metrics below to predict the likelihood of liver disease.")
-    
+
     with st.form("prediction_form"):
         row1_col1, row1_col2 = st.columns(2)
         age = row1_col1.number_input("Age", min_value=1, max_value=120, value=20)
@@ -54,7 +54,7 @@ with col2:
         
         row2_col1, row2_col2 = st.columns(2)
         tb = row2_col1.number_input("Total Bilirubin", min_value=0.0, format="%.2f", value=1.21)
-        db = row2_col2.number_input("Direct Bilirubin", min_value=0.0, format="%.2f", value=0.19) 
+        db = row2_col2.number_input("Direct Bilirubin", min_value=0.0, format="%.2f", value=0.19)
         
         row3_col1, row3_col2 = st.columns(2)
         ap = row3_col1.number_input("Alkaline Phosphotase", min_value=0.0, format="%.2f", value=150.14)
@@ -67,11 +67,13 @@ with col2:
         row5_col1, row5_col2 = st.columns(2)
         alb = row5_col1.number_input("Albumin", min_value=0.0, format="%.2f", value=3.30)
         agr = row5_col2.number_input("Albumin/Globulin Ratio", min_value=0.0, format="%.2f", value=0.95)
-        
+
         submitted = st.form_submit_button("Run Diagnostics", use_container_width=True)
 
     if submitted:
+
         gender_numeric = 1 if gender_selection == "Male" else 0
+        
 
         input_features = np.array([[age, gender_numeric, tb, db, ap, sgpt, sgot, tp, alb, agr]])
 
