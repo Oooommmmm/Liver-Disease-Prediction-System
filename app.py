@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-st.set_page_config(page_title="Liver Disease Diagnostic System", page_icon="🩺", layout="wide")
+st.set_page_config(page_title="Liver Disease Diagnostic System", layout="wide")
 
 @st.cache_resource
 def load_model():
@@ -11,7 +11,7 @@ def load_model():
 
 model = load_model()
 
-st.title("🩺 Liver Disease Prediction Model")
+st.title("Liver Disease Prediction Model")
 st.markdown("Early detection and supportive decision-making powered by Machine Learning.")
 st.divider()
 
@@ -85,11 +85,11 @@ with col2:
 
         st.divider()
         if prediction == 1:
-            st.error(f"🚨 **High Risk Detected:** The model indicates that the patient is likely suffering from liver disease.")
+            st.error(f"**High Risk Detected:** The model indicates that the patient is likely suffering from liver disease.")
             st.metric(label="Model Confidence Score (High Risk)", value=f"{high_risk_prob:.1f}%")
         else:
-            st.success(f"✅ **Low Risk:** The model does not detect strong signs of liver disease based on the provided metrics.")
+            st.success(f"**Low Risk:** The model does not detect strong signs of liver disease based on the provided metrics.")
             st.metric(label="Model Confidence Score (Low Risk)", value=f"{low_risk_prob:.1f}%")
 
 st.divider()
-st.caption("⚠️ **Disclaimer:** This tool is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.")
+st.caption("**Disclaimer:** This tool is for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.")
